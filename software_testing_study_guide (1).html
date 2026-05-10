@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Software Testing — Complete Exam Guide</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #08111f;
+  --surface: #0f1c2e;
+  --surface2: #162438;
+  --border: #1c2f47;
+  --a1: #4f90f7;   /* blue */
+  --a2: #00cba9;   /* teal */
+  --a3: #f5c842;   /* gold */
+  --a4: #f76b8a;   /* pink */
+  --a5: #a78bfa;   /* purple */
+  --a6: #fb923c;   /* orange */
+  --a7: #34d399;   /* green */
+  --text: #d8e4f0;
+  --muted: #6b829a;
+  --white: #ffffff;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.72;
+  overflow-x: hidden;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #08111f 0%, #0b1a30 60%, #08111f 100%);
+  border-bottom: 1px solid var(--border);
+  padding: clamp(40px, 8vw, 72px) clamp(16px, 5vw, 48px) clamp(36px, 6vw, 60px);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 65% 55% at 80% 35%, rgba(79,144,247,.13) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 45% at 15% 75%, rgba(0,203,169,.09) 0%, transparent 65%);
+}
+.hero-inner { position: relative; max-width: 1080px; margin: 0 auto; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(79,144,247,.12); border: 1px solid rgba(79,144,247,.3);
+  color: var(--a1); font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 20px; margin-bottom: 18px;
+}
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.9rem, 5.5vw, 3.4rem);
+  font-weight: 800; line-height: 1.08; color: var(--white);
+  margin-bottom: 14px;
+}
+.hero h1 em { color: var(--a1); font-style: normal; }
+.hero p { color: var(--muted); font-size: clamp(14px, 2vw, 16px); max-width: 500px; margin-bottom: 32px; }
+
+/* TOC grid */
+.toc {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 8px;
+}
+.toc a {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,.035); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 10px 14px;
+  text-decoration: none; color: var(--text);
+  font-size: 13px; font-weight: 500;
+  transition: background .18s, border-color .18s, transform .18s, color .18s;
+}
+.toc a:hover { background: rgba(79,144,247,.1); border-color: var(--a1); color: var(--white); transform: translateY(-2px); }
+.toc-num {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 10px;
+  background: rgba(79,144,247,.12); color: var(--a1);
+  border-radius: 5px; padding: 2px 7px; flex-shrink: 0; white-space: nowrap;
+}
+
+/* ── LAYOUT ── */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 clamp(12px, 4vw, 28px) 80px; }
+
+/* ── MODULES ── */
+.module { margin-top: 56px; scroll-margin-top: 16px; }
+.mod-header {
+  display: flex; align-items: center; gap: 14px;
+  padding-bottom: 14px; border-bottom: 1px solid var(--border);
+  margin-bottom: 24px; flex-wrap: wrap; gap: 10px;
+}
+.mod-badge {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 10px;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  padding: 4px 13px; border-radius: 20px; flex-shrink: 0; white-space: nowrap;
+}
+.c1  .mod-badge { background: rgba(79,144,247,.13); color: var(--a1); border: 1px solid rgba(79,144,247,.28); }
+.c2  .mod-badge { background: rgba(0,203,169,.11);  color: var(--a2); border: 1px solid rgba(0,203,169,.27); }
+.c3  .mod-badge { background: rgba(245,200,66,.1);  color: var(--a3); border: 1px solid rgba(245,200,66,.27); }
+.c4  .mod-badge { background: rgba(247,107,138,.1); color: var(--a4); border: 1px solid rgba(247,107,138,.26); }
+.c5  .mod-badge { background: rgba(167,139,250,.1); color: var(--a5); border: 1px solid rgba(167,139,250,.26); }
+.c6  .mod-badge { background: rgba(251,146,60,.1);  color: var(--a6); border: 1px solid rgba(251,146,60,.26); }
+.c7  .mod-badge { background: rgba(52,211,153,.1);  color: var(--a7); border: 1px solid rgba(52,211,153,.25); }
+.c8  .mod-badge { background: rgba(248,113,113,.1); color: #f87171;   border: 1px solid rgba(248,113,113,.25); }
+.c9  .mod-badge { background: rgba(99,179,237,.1);  color: #63b3ed;   border: 1px solid rgba(99,179,237,.25); }
+.c10 .mod-badge { background: rgba(236,201,75,.1);  color: #ecc94b;   border: 1px solid rgba(236,201,75,.25); }
+.c11 .mod-badge { background: rgba(129,140,248,.1); color: #818cf8;   border: 1px solid rgba(129,140,248,.25); }
+.c12 .mod-badge { background: rgba(45,212,191,.1);  color: #2dd4bf;   border: 1px solid rgba(45,212,191,.25); }
+.c13 .mod-badge { background: rgba(244,114,182,.1); color: #f472b6;   border: 1px solid rgba(244,114,182,.25); }
+
+.mod-header h2 {
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: clamp(1rem, 2.8vw, 1.3rem); color: var(--white); line-height: 1.25;
+}
+
+/* ── CARD ── */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: clamp(16px, 3vw, 26px) clamp(16px, 3.5vw, 28px);
+  margin-bottom: 16px;
+}
+.card h3 {
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: clamp(.9rem, 2vw, 1.05rem); color: var(--white);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 9px;
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--a1); flex-shrink: 0; }
+.card p { color: var(--text); margin-bottom: 8px; font-size: 14.5px; }
+.card p:last-child { margin-bottom: 0; }
+
+/* ── 2-COL GRID ── */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 600px) { .g2 { grid-template-columns: 1fr; } }
+
+/* ── INFO BOXES ── */
+.ib { border-radius: var(--radius-sm); padding: 13px 17px; margin: 10px 0; font-size: 14px; line-height: 1.65; }
+.ib-blue   { background: rgba(79,144,247,.07);  border-left: 3px solid var(--a1); }
+.ib-teal   { background: rgba(0,203,169,.06);   border-left: 3px solid var(--a2); }
+.ib-gold   { background: rgba(245,200,66,.06);  border-left: 3px solid var(--a3); }
+.ib-pink   { background: rgba(247,107,138,.06); border-left: 3px solid var(--a4); }
+.ib-purple { background: rgba(167,139,250,.06); border-left: 3px solid var(--a5); }
+.ib-orange { background: rgba(251,146,60,.06);  border-left: 3px solid var(--a6); }
+
+/* ── TABLE ── */
+.tw { overflow-x: auto; margin: 12px 0; border-radius: var(--radius-sm); -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 320px; }
+th {
+  background: var(--surface2); color: var(--a1);
+  font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .7px;
+  padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+td { padding: 9px 14px; border-bottom: 1px solid rgba(28,47,71,.55); vertical-align: top; font-size: 13.5px; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.018); }
+
+/* ── LISTS ── */
+ul.pts, ol.pts { padding-left: 0; list-style: none; }
+ul.pts li {
+  padding: 4px 0 4px 22px; position: relative;
+  color: var(--text); font-size: 14.5px; line-height: 1.65;
+}
+ul.pts li::before { content: '▸'; position: absolute; left: 0; color: var(--a1); font-size: 11px; top: 8px; }
+ol.pts { counter-reset: ol; }
+ol.pts li {
+  padding: 5px 0 5px 32px; position: relative;
+  color: var(--text); font-size: 14.5px; counter-increment: ol; line-height: 1.65;
+}
+ol.pts li::before {
+  content: counter(ol); position: absolute; left: 0; top: 8px;
+  background: var(--a1); color: #08111f;
+  font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 800;
+  width: 20px; height: 20px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── CODE ── */
+pre {
+  background: #040c18; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 16px 18px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  font-family: 'Courier New', Consolas, monospace; font-size: 12.5px;
+  color: #a9c8ff; line-height: 1.65; margin: 12px 0;
+}
+code { color: #a9c8ff; font-family: 'Courier New', monospace; font-size: 13px; }
+.kw { color: #c792ea; } .fn { color: #82aaff; } .str { color: #c3e88d; } .cm { color: #4a6274; }
+
+/* ── FORMULA ── */
+.formula {
+  background: #040c18; border: 1px dashed rgba(79,144,247,.4);
+  border-radius: var(--radius-sm); padding: 12px 16px;
+  font-family: 'Courier New', monospace; font-size: 13.5px;
+  color: var(--a3); margin: 10px 0; text-align: center;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+
+/* ── PILLS ── */
+.pill {
+  display: inline-block; padding: 3px 9px; border-radius: 11px;
+  font-size: 12px; font-weight: 600; margin: 2px 3px 2px 0;
+}
+.p-blue   { background: rgba(79,144,247,.14); color: var(--a1); }
+.p-teal   { background: rgba(0,203,169,.11);  color: var(--a2); }
+.p-gold   { background: rgba(245,200,66,.11); color: var(--a3); }
+.p-pink   { background: rgba(247,107,138,.11);color: var(--a4); }
+.p-purple { background: rgba(167,139,250,.11);color: var(--a5); }
+.p-green  { background: rgba(52,211,153,.11); color: var(--a7); }
+
+/* ── HIGHLIGHTS ── */
+.hl  { color: var(--a3); font-weight: 600; }
+.hl2 { color: var(--a2); font-weight: 600; }
+.hl3 { color: var(--a1); font-weight: 600; }
+
+/* ── MCQ ── */
+.mcq {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 15px 19px; margin: 10px 0;
+}
+.mcq .q  { color: var(--white); font-weight: 500; margin-bottom: 8px; font-size: 14px; }
+.mcq .opt { color: var(--muted); font-size: 13.5px; margin-bottom: 4px; }
+.mcq .ans { color: var(--a2); font-weight: 700; margin-top: 9px; font-size: 13px; padding-top: 9px; border-top: 1px solid var(--border); }
+
+/* ── STEP BAR ── */
+.steps { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
+.step {
+  flex: 1; min-width: 110px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 10px 14px; text-align: center;
+}
+.step .sn { display: block; font-family: 'Syne', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--a1); margin-bottom: 4px; }
+.step .st { color: var(--white); font-weight: 500; font-size: 12px; line-height: 1.35; }
+
+/* ── DIVIDER ── */
+hr.div { border: none; border-top: 1px solid var(--border); margin: 22px 0; }
+
+/* ── RESPONSIVE BREAKPOINTS ── */
+@media (max-width: 768px) {
+  .hero { padding: 36px 16px 30px; }
+  .toc { grid-template-columns: 1fr 1fr; }
+  .card { padding: 14px 16px; }
+  table { font-size: 12.5px; }
+  th, td { padding: 8px 10px; }
+  pre { font-size: 11.5px; padding: 12px 14px; }
+}
+@media (max-width: 480px) {
+  .toc { grid-template-columns: 1fr; }
+  .g2 { grid-template-columns: 1fr; }
+  .mod-header { gap: 8px; }
+  .steps { gap: 4px; }
+  .step { min-width: 80px; padding: 8px 10px; }
+  .step .st { font-size: 11px; }
+  h1 { font-size: 1.7rem !important; }
+}
+@media (max-width: 360px) {
+  body { font-size: 14px; }
+  .hero { padding: 28px 12px 24px; }
+  .card { padding: 12px 14px; }
+}
+
+/* Ensure images never overflow */
+img { max-width: 100%; height: auto; }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">📚 Exam Prep — All 13 PPTs Covered</div>
+    <h1>Software Testing<br><em>Complete Study Guide</em></h1>
+    <p>Every definition, table, formula, MCQ, analogy and code example — nothing left out.</p>
+    <nav class="toc" aria-label="Table of contents">
+      <a href="#m1"><span class="toc-num">01</span>Intro &amp; Principles</a>
+      <a href="#m2"><span class="toc-num">02</span>Verification &amp; Validation</a>
+      <a href="#m3"><span class="toc-num">03</span>STLC</a>
+      <a href="#m4"><span class="toc-num">04</span>Test Case Prep</a>
+      <a href="#m5"><span class="toc-num">05</span>Manual vs Automation</a>
+      <a href="#m6"><span class="toc-num">06</span>Functional vs Non-Functional</a>
+      <a href="#m7"><span class="toc-num">07</span>White Box &amp; Black Box</a>
+      <a href="#m8"><span class="toc-num">08</span>Decision &amp; State Transition</a>
+      <a href="#m9"><span class="toc-num">09</span>Unit → Regression</a>
+      <a href="#m10"><span class="toc-num">10</span>Formal, Monkey, Load</a>
+      <a href="#m11"><span class="toc-num">11</span>Ad hoc &amp; Defect Seeding</a>
+      <a href="#m12"><span class="toc-num">12</span>Metrics &amp; Debugging</a>
+      <a href="#m13"><span class="toc-num">13</span>Case Studies + Code</a>
+    </nav>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════ MODULE 1 ═══════════════ -->
+<section class="module c1" id="m1">
+  <div class="mod-header">
+    <span class="mod-badge">Module 01</span>
+    <h2>Introduction, Testing Objectives &amp; Principles</h2>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>What is Software Testing?</h3>
+    <p>The process of evaluating a software application to <span class="hl">identify defects</span> and ensure it meets specified requirements. Software is executed under controlled conditions to detect errors, gaps, or missing functionalities.</p>
+    <div class="ib ib-blue">
+      <strong>Key Definitions (frequently examined):</strong><br>
+      • Myers: <em>"Testing is executing a program with the intent of finding errors."</em><br>
+      • Myers: <em>"A successful test is one that uncovers an as-yet undiscovered error."</em><br>
+      • Dijkstra: <em>"Testing can show the presence of bugs but never their absence."</em><br>
+      • Cem Kaner: <em>"Software testing is an empirical investigation to provide stakeholders with information about product quality in the context it is intended to operate."</em>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>4 Core Testing Objectives</h3>
+    <div class="g2">
+      <div class="ib ib-blue">✦ <strong>To uncover defects</strong> — find bugs at any SDLC stage</div>
+      <div class="ib ib-teal">✦ <strong>Ensure software meets requirements</strong> — all features work correctly</div>
+      <div class="ib ib-gold">✦ <strong>Validate &amp; verify system performance</strong> — behaves under expected conditions</div>
+      <div class="ib ib-pink">✦ <strong>Improve product quality</strong> — reliability, usability, correctness</div>
+    </div>
+    <p style="margin-top:12px"><strong>Typical Objectives (ISTQB):</strong></p>
+    <ul class="pts">
+      <li>Evaluate work products using static testing (reviews)</li>
+      <li>Verify all specified requirements are fulfilled</li>
+      <li>Validate the system works as stakeholders expect (UAT)</li>
+      <li>Build confidence in quality (highest-risk tests pass)</li>
+      <li>Prevent defects by identifying issues early in requirements</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Goals of Software Testing — 3 Categories</h3>
+    <div class="g2">
+      <div>
+        <p><span class="hl3">Immediate Goals</span></p>
+        <ul class="pts"><li>Bug discovery — the more found early, the better</li></ul>
+        <p style="margin-top:12px"><span class="hl3">Long-term Goals</span></p>
+        <ul class="pts">
+          <li><strong>Quality</strong> — correctness, efficiency, reliability</li>
+          <li><strong>Reliability</strong> — confidence software won't fail</li>
+          <li><strong>Customer Satisfaction</strong> — meets user expectations</li>
+          <li><strong>Risk Management</strong> — minimize undesirable events</li>
+        </ul>
+      </div>
+      <div>
+        <p><span class="hl3">Post-Implementation Goals</span></p>
+        <ul class="pts">
+          <li>Bug Prevention — lessons from past executions</li>
+          <li>Reduced Maintenance Cost — fewer post-release failures</li>
+          <li>Improved Testing Process — knowledge for future projects</li>
+        </ul>
+        <div class="ib ib-teal" style="margin-top:12px">
+          <strong>Benefits:</strong> Early bug detection · Cost reduction · Improved user satisfaction · Increased development efficiency
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>7 Principles of Software Testing</h3>
+    <ol class="pts">
+      <li><strong>Testing shows presence of defects, not absence</strong> — All tests passing ≠ bug-free. Even 50 passing tests won't catch a crash from a special-character username.</li>
+      <li><strong>Exhaustive testing is impossible</strong> — Infinite input combinations, time, cost constraints. Use risk-based testing, BVA, and equivalence partitioning instead.</li>
+      <li><strong>Early Testing</strong> — Start as early as possible in SDLC. Cost of fixing a defect increases exponentially as the project progresses. V-Model and Agile test in parallel with development.</li>
+      <li><strong>Defect Clustering</strong> — 80% of defects in 20% of modules (Pareto Principle). Focus effort on complex, frequently modified, or newly developed modules.</li>
+      <li><strong>Pesticide Paradox</strong> — Repeating the same test cases won't find new bugs. Regularly review and add new test cases.</li>
+      <li><strong>Testing is Context Dependent</strong> — Healthcare software requires different methods than e-commerce. Domain dictates technique.</li>
+      <li><strong>Absence of Errors Fallacy</strong> — A bug-free system is still useless if it doesn't meet user needs or business requirements.</li>
+    </ol>
+    <div class="ib ib-gold"><strong>Exam Tip:</strong> All 7 principles are a very common question. Memorise name + one-line explanation.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>Verification vs Validation</h3>
+    <div class="tw">
+      <table>
+        <tr><th>Aspect</th><th>Verification</th><th>Validation</th></tr>
+        <tr><td>Purpose</td><td>Are we building the product right?</td><td>Are we building the right product?</td></tr>
+        <tr><td>Focus</td><td>Process-oriented (design, documents, code)</td><td>Product-oriented (actual software)</td></tr>
+        <tr><td>Activities</td><td>Reviews, inspections, walkthroughs</td><td>Functional testing, system testing, UAT</td></tr>
+        <tr><td>Timing</td><td>Before testing begins</td><td>After verification / during testing</td></tr>
+        <tr><td>Question</td><td>"Built correctly per design/specs?"</td><td>"Right product for the user?"</td></tr>
+      </table>
+    </div>
+    <div class="ib ib-blue" style="margin-top:10px"><strong>Types of Testing Overview:</strong> Manual Testing · Automated Testing · Functional Testing · Non-Functional Testing</div>
+  </div>
+</section>
+
+<!-- ═══════════════ MODULE 2 ═══════════════ -->
+<section class="module c2" id="m2">
+  <div class="mod-header">
+    <span class="mod-badge">Module 02</span>
+    <h2>Verification, Validation, Coverage &amp; Quality</h2>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a2)"></span>Static vs Dynamic Verification</h3>
+    <div class="tw">
+      <table>
+        <tr><th>Aspect</th><th>Static Verification</th><th>Dynamic Verification</th></tr>
+        <tr><td>Execution</td><td>Code NOT executed</td><td>Code IS executed</td></tr>
+        <tr><td>When</td><td>Early — requirements, design, code review</td><td>Later — after code is written</td></tr>
+        <tr><td>Techniques</td><td>Reviews, walkthroughs, inspections, static analysis</td><td>Unit, integration, system, acceptance testing</td></tr>
+        <tr><td>Goal</td><td>Correctness of artifacts (SRS, SDD, code structure)</td><td>Correctness of software behaviour during execution</td></tr>
+        <tr><td>Cost</td><td>Cheaper — errors caught early</td><td>More expensive — errors found later</td></tr>
+      </table>
+    </div>
+    <hr class="div">
+    <div class="g2">
+      <div>
+        <p><span class="hl2">Static Verification activities:</span></p>
+        <ul class="pts">
+          <li>Code Review — systematic examination by peers</li>
+          <li>Design Review — SDD checked against SRS</li>
+          <li>Walkthroughs — step-by-step presentation by author</li>
+          <li>Inspections — formal, checklist-based defect detection</li>
+          <li>Static Analysis Tools — coding standards, memory leaks</li>
+        </ul>
+      </div>
+      <div>
+        <p><span class="hl2">Dynamic Verification activities:</span></p>
+        <ul class="pts">
+          <li>Unit Testing</li>
+          <li>Integration Testing</li>
+          <li>System Testing</li>
+          <li>Acceptance Testing</li>
+        </ul>
+        <div class="ib ib-teal" style="margin-top:8px">Example: Running a login module to confirm correct username/password works.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a2)"></span>Peer Review vs Walkthrough vs Inspection</h3>
+    <div class="tw">
+      <table>
+        <tr><th>Method</th><th>Presenter</th><th>Members</th><th>Prerequisites</th><th>Report By</th><th>Strength</th><th>Weakness</th></tr>
+        <tr><td><strong>Peer Review</strong></td><td>None</td><td>1–2</td><td>None</td><td>Not required</td><td>Less expensive</td><td>Depends on reviewer ability</td></tr>
+        <tr><td><strong>Walkthrough</strong></td><td>Author</td><td>2–7</td><td>Author only</td><td>Presenter</td><td>Knowledge sharing</td><td>Finds few faults</td></tr>
+        <tr><td><strong>Inspection</strong></td><td>Author + others</td><td>3–6</td><td>All participants</td><td>Moderator</td><td>Most effective</td><td>Expensive, needs skilled team</td></tr>
+      </table>
+    </div>
+    <div class="ib ib-gold"><strong>Inspection key detail:</strong> Led by an <em>impartial moderator</em>. Everyone participates openly. Final report prepared after the meeting by the moderator. Team size: 3–6.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a2)"></span>Verification Flow: SRS → SDD → Code</h3>
+    <div class="ib ib-blue">
+      <strong>SRS Verification</strong> (Requirements Check) → Are the requirements correct?<br>
+      &nbsp;&nbsp;↓ Design is derived from requirements<br>
+      <strong>SDD Verification</strong> (Design Check) → Is the design consistent with requirements?<br>
+      &nbsp;&nbsp;↓ Code is derived from design<br>
+      <strong>Program Verification</strong> (Code Review) → Does the code follow the design?
+    </div>
+    <div class="tw" style="margin-top:12px">
+      <table>
+        <tr><th>Stage</th><th>Document Verified</th><th>Checks For</th></tr>
+        <tr><td>SRS Verification</td><td>Requirements doc</td><td>Correctness, completeness, clarity, no contradictions</td></tr>
+        <tr><td>SDD Verification</td><td>Design doc</td><td>Consistency with SRS, feasibility, architecture correctness</td></tr>
+        <tr><td>Program Verification</td><td>Code</td><td>Matches SDD, correctness, coding standards, naming conventions</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a2)"></span>Coverage Techniques</h3>
+    <div class="g2">
+      <div>
+        <p><span class="hl2">1. Statement Coverage</span></p>
+        <p>Every statement (line) executed at least once.</p>
+        <div class="formula">Coverage = (Executed Statements / Total Statements) × 100</div>
+        <p><span class="hl2">2. Decision/Branch Coverage</span></p>
+        <p>Every True/False branch of every decision executed at least once.</p>
+        <div class="formula">Coverage = (Executed Branches / Total Branches) × 100</div>
+      </div>
+      <div>
+        <p><span class="hl2">3. Path Coverage</span></p>
+        <p>Every unique execution path from start to end is tested. Most exhaustive.</p>
+        <div class="formula">Coverage = (Executed Paths / Total Possible Paths) × 100</div>
+        <div class="ib ib-gold" style="margin-top:12px">
+          <strong>Order of exhaustiveness:</strong><br>
+          Statement &lt; Branch/Decision &lt; Path<br>
+          Path = most thorough, most test cases needed
+        </div>
+      </div>
+    </div>
+    <div class="tw" style="margin-top:14px">
+      <table>
+        <tr><th>Type</th><th>What it Ensures</th><th>Test Cases</th></tr>
+        <tr><td>Statement</td><td>Every line runs at least once</td><td>Few</td></tr>
+        <tr><td>Decision</td><td>Both outcomes of if/else, loops tested</td><td>More than statement</td></tr>
+        <tr><td>Path</td><td>All combinations of branches</td><td>Most exhaustive</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a2)"></span>Validation Techniques</h3>
+    <ul class="pts">
+      <li><strong>UAT (User Acceptance Testing)</strong> — end users test in real-world scenarios</li>
+      <li><strong>Usability Testing</strong> — evaluates user-friendliness by observing users</li>
+      <li><strong>Performance Testing</strong> — speed, responsiveness, stability under load</li>
+      <li><strong>Security Testing</strong> — checks vulnerabilities, data protection</li>
+      <li><strong>Compatibility Testing</strong> — functionality across different environments/devices</li>
+      <li><strong>Prototyping</strong> — working model created for user feedback</li>
+      <li><strong>Simulation</strong> — using models to test system behaviour</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a2)"></span>Software Quality &amp; Reliability</h3>
+    <div class="g2">
+      <div class="ib ib-blue">
+        <strong>Software Quality</strong><br>
+        Degree to which software meets specified AND implied needs. Quality ≠ just no bugs — it's "fit for purpose." High quality → user satisfaction, reduced maintenance costs, improved reputation.
+      </div>
+      <div class="ib ib-teal">
+        <strong>Software Reliability</strong><br>
+        Probability that software performs required functions without failure for a specified time in a specified environment. A reliable product <em>consistently works</em> as expected.
+      </div>
+    </div>
+    <div class="ib ib-pink" style="margin-top:10px">
+      <strong>Error → Defect → Failure Chain:</strong><br>
+      Error (human mistake in code) → Defect (flaw in code) → Failure (observable problem for user)<br>
+      Example: Spelling mistake in code → button not working → application crash
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a2)"></span>Common Types of Defects</h3>
+    <div class="tw">
+      <table>
+        <tr><th>Type</th><th>Description</th><th>Example</th></tr>
+        <tr><td><strong>Functional Defects</strong></td><td>Features don't work as specified</td><td>Login button doesn't respond</td></tr>
+        <tr><td><strong>Performance Defects</strong></td><td>Too slow or takes too long to load</td><td>Page takes 30 seconds to load</td></tr>
+        <tr><td><strong>Usability Defects</strong></td><td>UI confusing, navigation difficult</td><td>Users can't find checkout button</td></tr>
+        <tr><td><strong>Security Defects</strong></td><td>Vulnerable to unauthorised access</td><td>SQL injection possible on login form</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a2)"></span>Defect Management Process</h3>
+    <div class="steps">
+      <div class="step"><span class="sn">Step 1</span><span class="st">Discover — Tester finds &amp; logs defect in Jira/Bugzilla</span></div>
+      <div class="step"><span class="sn">Step 2</span><span class="st">Assign &amp; Analyze — Bug assigned to developer who analyses it</span></div>
+      <div class="step"><span class="sn">Step 3</span><span class="st">Fix &amp; Test — Developer fixes; sent back to tester for re-verification</span></div>
+      <div class="step"><span class="sn">Step 4</span><span class="st">Close — Fix confirmed → bug marked "Closed"</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a2)"></span>Measuring Quality &amp; Reliability</h3>
+    <div class="g2">
+      <div class="ib ib-blue">
+        <strong>Reliability Metrics:</strong><br>
+        • <strong>MTTF</strong> (Mean Time to Failure) — average time between system failures. Higher = better.<br>
+        • <strong>Defect Density</strong> — defects per KLOC (thousands of lines of code). Lower = better.
+        <div class="formula" style="margin-top:8px">Defect Density = Defects / KLOC</div>
+        Example: 30 defects in 12 KLOC = 2.5 defects/KLOC
+      </div>
+      <div class="ib ib-teal">
+        <strong>Quality Metrics:</strong><br>
+        • <strong>Customer Satisfaction</strong> — surveys, reviews, feedback<br>
+        • <strong>Post-Release Defects</strong> — bugs found after public release
+        <br><br>
+        <strong>QC vs QA:</strong><br>
+        <strong>QC</strong> (Quality Control) = <em>reactive</em> — testing finds &amp; fixes problems<br>
+        <strong>QA</strong> (Quality Assurance) = <em>proactive</em> — defines standards to prevent defects
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a2)"></span>Practice MCQs — Module 2</h3>
+    <div class="mcq">
+      <div class="q">Q1. Which activity is primarily Verification?<br>A. Beta testing &nbsp; B. UAT &nbsp; C. Formal inspection &nbsp; D. A/B testing</div>
+      <div class="ans">✅ C. Formal inspection — checks without executing code</div>
+    </div>
+    <div class="mcq">
+      <div class="q">Q2. In a formal inspection, who leads the meeting and ensures the process is followed?<br>A. Author &nbsp; B. Moderator &nbsp; C. Reader/Presenter &nbsp; D. Scribe</div>
+      <div class="ans">✅ B. Moderator</div>
+    </div>
+    <div class="mcq">
+      <div class="q">Q3. Which is a static technique?<br>A. System test &nbsp; B. Code walkthrough &nbsp; C. Load test &nbsp; D. Recovery test</div>
+      <div class="ans">✅ B. Code walkthrough (no code execution required)</div>
+    </div>
+    <div class="mcq">
+      <div class="q">Q5. Validation is best paraphrased as:<br>A. Are we building the product right? &nbsp; B. Are we building the right product? &nbsp; C. Are we following coding standards? &nbsp; D. Meeting sprint goal?</div>
+      <div class="ans">✅ B. Are we building the right product?</div>
+    </div>
+    <div class="mcq">
+      <div class="q">Q7. Which combination is most accurate?<br>A. Unit &amp; integration = Validation &nbsp; B. Inspections &amp; static analysis = Verification &nbsp; C. Beta &amp; A/B = Verification &nbsp; D. UAT &amp; inspections = Validation</div>
+      <div class="ans">✅ B. Inspections &amp; static analysis = Verification</div>
+    </div>
+    <div class="mcq">
+      <div class="q">Q13. Defect Density: 62 defects found in 25 KLOC = ?<br>A. 1.24 &nbsp; B. 2.48 &nbsp; C. 4.2 &nbsp; D. 5.0 defects/KLOC</div>
+      <div class="ans">✅ B. 2.48 defects/KLOC &nbsp;(62 ÷ 25 = 2.48)</div>
+    </div>
+    <div class="mcq">
+      <div class="q">Q14. Review Rate: 32 pages inspected in 90 min (1.5 hrs). Rate = ?<br>A. 16 &nbsp; B. 18 &nbsp; C. 21.3 &nbsp; D. 30 pages/hr</div>
+      <div class="ans">✅ C. 21.3 pages/hr &nbsp;(32 ÷ 1.5 = 21.33)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MODULE 3 ═══════════════ -->
+<section class="module c3" id="m3">
+  <div class="mod-header">
+    <span class="mod-badge">Module 03</span>
+    <h2>Software Testing Life Cycle (STLC)</h2>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a3)"></span>STLC Overview &amp; Key Points</h3>
+    <p>STLC defines a <strong>sequence of activities</strong> to ensure software quality. Each phase has defined entry criteria, exit criteria, and deliverables.</p>
+    <div class="steps">
+      <div class="step"><span class="sn">Phase 1</span><span class="st">Requirement Analysis</span></div>
+      <div class="step"><span class="sn">Phase 2</span><span class="st">Test Planning</span></div>
+      <div class="step"><span class="sn">Phase 3</span><span class="st">Test Case Design</span></div>
+      <div class="step"><span class="sn">Phase 4</span><span class="st">Env Setup</span></div>
+      <div class="step"><span class="sn">Phase 5</span><span class="st">Test Execution</span></div>
+      <div class="step"><span class="sn">Phase 6</span><span class="st">Defect Tracking</span></div>
+      <div class="step"><span class="sn">Phase 7</span><span class="st">Test Closure</span></div>
+    </div>
+    <ul class="pts" style="margin-top:12px">
+      <li>STLC ensures systematic and efficient testing at every SDLC phase</li>
+      <li>Each phase has defined <strong>entry and exit criteria</strong> for quality control</li>
+      <li>Early QA involvement helps <strong>prevent</strong> defects, not just detect them</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a3)"></span>Phase-by-Phase Details</h3>
+    <div class="tw">
+      <table>
+        <tr><th>Phase</th><th>Objective</th><th>Key Activities</th><th>Deliverables</th></tr>
+        <tr><td><strong>1. Req Analysis</strong></td><td>Understand what to test</td><td>Analyse SRS, identify testable items, review with QA</td><td>RTM, Requirement Review Report</td></tr>
+        <tr><td><strong>2. Test Planning</strong></td><td>Define strategy, scope, objectives</td><td>Identify objectives, schedule, resources, tools, levels</td><td>Test Plan Doc, Effort Estimation</td></tr>
+        <tr><td><strong>3. Test Case Design</strong></td><td>Create detailed test cases &amp; data</td><td>Write TCs for all scenarios, review test scripts</td><td>Test Case Doc, Test Data, Automation Scripts</td></tr>
+        <tr><td><strong>4. Env Setup</strong></td><td>Prepare testing environment</td><td>Configure servers, databases, tools; smoke testing</td><td>Env Setup Confirmation, Smoke Test Results</td></tr>
+        <tr><td><strong>5. Test Execution</strong></td><td>Execute &amp; record results</td><td>Run TCs, compare actual vs expected, log defects</td><td>Execution Report, Defect Reports</td></tr>
+        <tr><td><strong>6. Defect Tracking</strong></td><td>Track defects to closure</td><td>Log defects, assign severity/priority, verify fixes, regression</td><td>Updated Defect Log</td></tr>
+        <tr><td><strong>7. Test Closure</strong></td><td>Summarise &amp; evaluate</td><td>Analyse coverage, defect metrics, lessons learned</td><td>TSR (Test Summary Report), Lessons Learned</td></tr>
+      </table>
+    </div>
+    <div class="ib ib-gold">
+      <strong>RTM</strong> = Requirement Traceability Matrix — maps requirements to test cases (Phase 1).<br>
+      <strong>TSR</strong> = Test Summary Report — final sign-off document (Phase 7).<br>
+      <strong>E-commerce Phase 3:</strong> Verify successful order placement with valid card.<br>
+      <strong>Healthcare Phase 3:</strong> Verify appointment booking for available doctor slot.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MODULE 4 ═══════════════ -->
+<section class="module c4" id="m4">
+  <div class="mod-header">
+    <span class="mod-badge">Module 04</span>
+    <h2>Test Case Preparation</h2>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a4)"></span>What is a Test Case?</h3>
+    <p>A <strong>set of conditions or steps</strong> to verify that a software feature works as expected. Well-written test cases improve test coverage and repeatability.</p>
+    <p style="margin-top:10px"><strong>8 Components of a Test Case:</strong></p>
+    <div class="g2">
+      <ol class="pts">
+        <li>Test Case ID</li>
+        <li>Test Description</li>
+        <li>Preconditions</li>
+        <li>Test Steps</li>
+      </ol>
+      <ol class="pts" style="counter-reset: ol 4">
+        <li>Test Data</li>
+        <li>Expected Result</li>
+        <li>Actual Result</li>
+        <li>Status (Pass / Fail)</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a4)"></span>Positive vs Negative Test Cases</h3>
+    <div class="g2">
+      <div class="ib ib-teal">
+        <strong>Positive Test Case</strong><br>Tests with <em>valid</em> data to confirm system works correctly.<br><br>
+        Example: Login with correct username and password → Dashboard loads.
+      </div>
+      <div class="ib ib-pink">
+        <strong>Negative Test Case</strong><br>Tests with <em>invalid</em> data to ensure proper error handling.<br><br>
+        Example: Login with wrong password → Error message shown.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a4)"></span>Real-Time Examples</h3>
+    <div class="tw">
+      <table>
+        <tr><th>TC ID</th><th>Description</th><th>Precondition</th><th>Steps</th><th>Expected Result</th><th>Status</th></tr>
+        <tr><td>TC_EC_01</td><td>Valid Login</td><td>User registered</td><td>Enter valid creds → Click Login</td><td>Redirected to dashboard</td><td>✅ Pass</td></tr>
+        <tr><td>TC_HC_01</td><td>Book Appointment</td><td>Doctor slot available</td><td>Select doctor → Date/time → Confirm</td><td>Confirmation message</td><td>✅ Pass</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a4)"></span>Writing Effective Test Cases</h3>
+    <div class="g2">
+      <div>
+        <p><strong>Good test cases are:</strong></p>
+        <ul class="pts">
+          <li>Clear, simple, and unambiguous</li>
+          <li>Traceable to requirements</li>
+          <li>Reusable across builds</li>
+          <li>Independent of others</li>
+          <li>Cover both positive and negative scenarios</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>Common Mistakes to Avoid:</strong></p>
+        <ul class="pts">
+          <li>Missing edge cases</li>
+          <li>Writing vague expected results</li>
+          <li>Not updating TCs after requirement changes</li>
+          <li>Ignoring dependencies between modules</li>
+        </ul>
+        <div class="ib ib-gold" style="margin-top:8px">Keep TCs updated with every software version change.</div>
+      </div>
+    </div>
+    <div class="ib ib-teal" style="margin-top:10px">
+      <strong>Best Practices:</strong> Test cases form the foundation of systematic testing · Write clear, traceable, reusable TCs · Always review with peers · Maintain a TC repository for regression. In banking/healthcare, detailed TCs ensure critical operations run safely.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MODULE 5 ═══════════════ -->
+<section class="module c5" id="m5">
+  <div class="mod-header">
+    <span class="mod-badge">Module 05</span>
+    <h2>Manual vs Automation Testing</h2>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a5)"></span>Key Comparison</h3>
+    <div class="tw">
+      <table>
+        <tr><th>Aspect</th><th>Manual Testing</th><th>Automation Testing</th></tr>
+        <tr><td>Execution</td><td>Human tester executes step by step</td><td>Scripts/tools execute automatically</td></tr>
+        <tr><td>Speed</td><td>Slow, time-consuming</td><td>Fast execution, highly reusable</td></tr>
+        <tr><td>Cost</td><td>Low initial cost, no tools needed</td><td>High initial cost (tools, scripting)</td></tr>
+        <tr><td>Best for</td><td>Exploratory, usability, ad-hoc testing</td><td>Regression, load, performance, CI/CD</td></tr>
+        <tr><td>Coding skills</td><td>Not required</td><td>Required</td></tr>
+        <tr><td>Accuracy</td><td>Prone to human error</td><td>High accuracy, consistent results</td></tr>
+        <tr><td>24/7 execution</td><td>No</td><td>Yes</td></tr>
+        <tr><td>Ideal project</td><td>Small, short-term</td><td>Large, long-term projects</td></tr>
+      </table>
+    </div>
+    <div class="g2" style="margin-top:12px">
+      <div class="ib ib-blue">
+        <strong>Manual:</strong> ✅ Flexible &amp; exploratory ✅ No tools needed<br>❌ Slow &amp; error-prone ❌ Cannot run 24/7
+      </div>
+      <div class="ib ib-teal">
+        <strong>Automation:</strong> ✅ Fast, reusable, accurate ✅ Supports CI/CD<br>❌ Expensive setup ❌ Not ideal for usability
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a5)"></span>When to Use What</h3>
+    <div class="g2">
+      <div>
+        <p><strong>Use Manual when:</strong></p>
+        <ul class="pts">
+          <li>Testing small projects</li>
+          <li>Performing usability or exploratory testing</li>
+          <li>Short-term testing needs</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>Use Automation when:</strong></p>
+        <ul class="pts">
+          <li>Regression, load, or performance testing</li>
+          <li>Long-term or large-scale projects</li>
+          <li>CI/CD pipelines</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a5)"></span>Popular Automation Tools</h3>
+    <div class="tw">
+      <table>
+        <tr><th>Tool</th><th>Use Case</th></tr>
+        <tr><td><strong>Selenium</strong></td><td>Web UI automation</td></tr>
+        <tr><td><strong>JMeter / LoadRunner</strong></td><td>Performance / load / stress testing</td></tr>
+        <tr><td><strong>Jenkins</strong></td><td>Continuous integration testing</td></tr>
+        <tr><td><strong>JUnit / pytest</strong></td><td>Unit testing frameworks (Java/Python)</td></tr>
+        <tr><td><strong>TestNG</strong></td><td>Advanced Java testing framework</td></tr>
+        <tr><td><strong>QTP / UFT</strong></td><td>HP's functional test automation tool</td></tr>
+        <tr><td><strong>Appium</strong></td><td>Mobile application testing</td></tr>
+      </table>
+    </div>
+    <div class="ib ib-blue" style="margin-top:10px">
+      <strong>Real-time examples:</strong><br>
+      Manual: Usability testing of a website · Exploratory testing of a mobile app<br>
+      Automation: Regression testing with Selenium · Performance testing with JMeter · CI testing with Jenkins
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MODULE 6 ═══════════════ -->
+<section class="module c6" id="m6">
+  <div class="mod-header">
+    <span class="mod-badge">Module 06</span>
+    <h2>Functional vs Non-Functional Testing</h2>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a6)"></span>Comparison</h3>
+    <div class="g2">
+      <div class="ib ib-blue">
+        <strong>Functional Testing</strong><br>
+        Verifies <span class="hl">WHAT</span> the system does according to requirements.<br><br>
+        <em>Focus:</em> Features and business logic<br><br>
+        <strong>Examples (online shopping):</strong><br>
+        • User login works<br>
+        • Product search works<br>
+        • Add to cart works<br>
+        • Payment transaction completes
+      </div>
+      <div class="ib ib-teal">
+        <strong>Non-Functional Testing</strong><br>
+        Evaluates <span class="hl2">HOW WELL</span> the system performs.<br><br>
+        <em>Focus:</em> Performance, security, usability<br><br>
+        <strong>Examples (online shopping):</strong><br>
+        • Website loads within 2 seconds<br>
+        • System supports 10,000 users<br>
+        • Secure payment processing<br>
+        • Reliability under heavy traffic
+      </div>
+    </div>
+    <div class="ib ib-gold" style="margin-top:12px">
+      <strong>Key distinction:</strong> Functional = WHAT the system does? &nbsp;|&nbsp; Non-Functional = HOW WELL does it do it?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a6)"></span>Exam Question</h3>
+    <div class="mcq">
+      <div class="q">A website allows users to place orders successfully, but the page takes 25 seconds to load. Is this a functional issue or non-functional issue?</div>
+      <div class="ans">✅ Non-Functional Issue — The feature works (functional ✓) but performance is poor (non-functional ✗).</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MODULE 7 ═══════════════ -->
+<section class="module c7" id="m7">
+  <div class="mod-header">
+    <span class="mod-badge">Module 07</span>
+    <h2>White Box &amp; Black Box Testing Techniques</h2>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a7)"></span>White Box Testing</h3>
+    <p>Also known as <span class="hl2">Clear Box / Structural / Glass Box Testing</span>. Tests <strong>internal logic, structure, and code</strong>. Performed by developers with programming knowledge.</p>
+    <p style="margin-top:10px"><strong>Objectives:</strong></p>
+    <ul class="pts">
+      <li>Ensure all independent code paths are executed (Path Coverage)</li>
+      <li>Validate loops, conditions, and data flow</li>
+      <li>Verify internal operations conform to design specifications</li>
+    </ul>
+    <p style="margin-top:12px"><strong>Techniques:</strong></p>
+    <div class="tw">
+      <table>
+        <tr><th>Technique</th><th>What it Tests</th></tr>
+        <tr><td><strong>Statement Coverage</strong></td><td>Every line of code executed at least once</td></tr>
+        <tr><td><strong>Branch/Decision Coverage</strong></td><td>Every True/False branch executed at least once</td></tr>
+        <tr><td><strong>Condition Coverage</strong></td><td>Each condition in a decision tested independently</td></tr>
+        <tr><td><strong>Path Coverage</strong></td><td>Every possible execution path from start to end</td></tr>
+        <tr><td><strong>Loop Testing</strong></td><td>Zero, one, typical, max, max+1 iterations</td></tr>
+      </table>
+    </div>
+    <div class="g2" style="margin-top:12px">
+      <div class="ib ib-teal">
+        <strong>Benefits:</strong><br>
+        • Early defect detection<br>
+        • Optimised code coverage<br>
+        • Logical errors easily detected
+      </div>
+      <div class="ib ib-pink">
+        <strong>Limitations:</strong><br>
+        • Time-consuming<br>
+        • Requires code-level expertise<br>
+        • Not suitable alone for large systems
+      </div>
+    </div>
+    <p style="margin-top:12px"><strong>Industrial example — PayPal:</strong> Devs ensure all encryption &amp; API calls are triggered, exception handling works, retry loops for failed transactions terminate correctly.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a7)"></span>Path Coverage — Code Example</h3>
+    <pre><span class="kw">if</span> A > <span class="str">10</span>:
+    <span class="kw">if</span> B > <span class="str">5</span>:
+        <span class="fn">print</span>(<span class="str">"Path 1"</span>)   <span class="cm"># A&gt;10 AND B&gt;5</span>
+    <span class="kw">else</span>:
+        <span class="fn">print</span>(<span class="str">"Path 2"</span>)   <span class="cm"># A&gt;10 AND B≤5</span>
+<span class="kw">else</span>:
+    <span class="kw">if</span> B > <span class="str">0</span>:
+        <span class="fn">print</span>(<span class="str">"Path 3"</span>)   <span class="cm"># A≤10 AND B&gt;0</span>
+    <span class="kw">else</span>:
+        <span class="fn">print</span>(<span class="str">"Path 4"</span>)   <span class="cm"># A≤10 AND B≤0</span></pre>
+    <p>Independent decisions: A&gt;10 (T/F), B&gt;5 (T/F when A&gt;10), B&gt;0 (T/F when A≤10). Total paths = <strong>4 test cases</strong> needed for full path coverage.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a7)"></span>Black Box Testing</h3>
+    <p>Also known as <span class="hl2">Behavioral / Functional Testing</span>. Tests <strong>external behaviour</strong> without knowledge of internal code. Performed by testers/QA engineers based on requirements.</p>
+    <p style="margin-top:10px"><strong>Objectives:</strong></p>
+    <ul class="pts">
+      <li>Validate software functionality against requirements</li>
+      <li>Identify incorrect or missing functions</li>
+      <li>Ensure proper user interface behaviour</li>
+    </ul>
+    <p style="margin-top:12px"><strong>Techniques:</strong></p>
+    <ul class="pts">
+      <li><strong>Equivalence Partitioning</strong> — divide input into valid/invalid partitions</li>
+      <li><strong>Boundary Value Analysis (BVA)</strong> — test at and around boundaries</li>
+      <li><strong>Decision Table Testing</strong> — multiple conditions → different actions</li>
+      <li><strong>State Transition Testing</strong> — test behaviour when system changes state</li>
+      <li><strong>Use Case Testing</strong> — based on user interaction scenarios</li>
+    </ul>
+    <p style="margin-top:12px"><strong>Industrial example — Amazon:</strong> Verify user can add/remove items correctly, discounts apply properly, payment errors show user-friendly messages, backend failures don't expose sensitive data.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a7)"></span>Equivalence Partitioning</h3>
+    <p>Divides input data into partitions. Only one value per partition is tested. Reduces number of test cases significantly.</p>
+    <p style="margin-top:8px">Example: Age input must be between 18 and 60.</p>
+    <div class="tw">
+      <table>
+        <tr><th>Partition</th><th>Range</th><th>Test Value</th><th>Expected</th></tr>
+        <tr><td>Valid</td><td>18–60</td><td>30</td><td>Accepted</td></tr>
+        <tr><td>Invalid (below)</td><td>&lt; 18</td><td>17</td><td>Rejected</td></tr>
+        <tr><td>Invalid (above)</td><td>&gt; 60</td><td>65</td><td>Rejected</td></tr>
+      </table>
+    </div>
+    <p style="margin-top:8px">Only <strong>3 test cases</strong> needed instead of testing every value.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a7)"></span>Boundary Value Analysis (BVA)</h3>
+    <p>Tests values at and around the boundaries. Example: Marks between 0 and 100.</p>
+    <div class="tw">
+      <table>
+        <tr><th>Test Value</th><th>Category</th><th>Expected</th></tr>
+        <tr><td>-1</td><td>Just below lower boundary</td><td>Invalid</td></tr>
+        <tr><td>0</td><td>Lower boundary</td><td>Valid</td></tr>
+        <tr><td>1</td><td>Just above lower boundary</td><td>Valid</td></tr>
+        <tr><td>99</td><td>Just below upper boundary</td><td>Valid</td></tr>
+        <tr><td>100</td><td>Upper boundary</td><td>Valid</td></tr>
+        <tr><td>101</td><td>Just above upper boundary</td><td>Invalid</td></tr>
+      </table>
+    </div>
+    <p><strong>6 test cases</strong> for BVA (2 boundaries × 3 values each).</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a7)"></span>Practice Question: EP + BVA</h3>
+    <div class="mcq">
+      <div class="q">A software system accepts marks between 0 and 40 (inclusive) as valid. Outside this range → "Invalid Marks" message. Design test cases using EP and BVA.</div>
+    </div>
+    <div class="g2" style="margin-top:10px">
+      <div>
+        <p><strong>Equivalence Partitioning:</strong></p>
+        <div class="tw"><table>
+          <tr><th>Partition</th><th>Value</th></tr>
+          <tr><td>Valid (0–40)</td><td>20</td></tr>
+          <tr><td>Invalid (&lt;0)</td><td>-5</td></tr>
+          <tr><td>Invalid (&gt;40)</td><td>50</td></tr>
+        </table></div>
+      </div>
+      <div>
+        <p><strong>Boundary Value Analysis:</strong></p>
+        <div class="tw"><table>
+          <tr><th>Value</th><th>Expected</th></tr>
+          <tr><td>-1</td><td>Invalid Marks</td></tr>
+          <tr><td>0</td><td>Valid</td></tr>
+          <tr><td>1</td><td>Valid</td></tr>
+          <tr><td>39</td><td>Valid</td></tr>
+          <tr><td>40</td><td>Valid</td></tr>
+          <tr><td>41</td><td>Invalid Marks</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:var(--a7)"></span>White Box vs Black Box — Summary</h3>
+    <div class="tw">
+      <table>
+        <tr><th>Aspect</th><th>White Box</th><th>Black Box</th></tr>
+        <tr><td>Also called</td><td>Clear/Glass/Structural</td><td>Behavioral/Functional</td></tr>
+        <tr><td>Knowledge needed</td><td>Internal code</td><td>Requirements only</td></tr>
+        <tr><td>Who performs</td><td>Developers</td><td>QA/Testers</td></tr>
+        <tr><td>Focus</td><td>Internal logic &amp; structure</td><td>External system behaviour</td></tr>
+        <tr><td>Techniques</td><td>Statement, Branch, Path, Loop coverage</td><td>EP, BVA, Decision Table, State Transition</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MODULE 8 ═══════════════ -->
+<section class="module c8" id="m8">
+  <div class="mod-header">
+    <span class="mod-badge">Module 08</span>
+    <h2>Decision Table Testing &amp; State Transition Testing</h2>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#f87171"></span>Decision Table Testing</h3>
+    <p>A <strong>black-box technique</strong> used when system behaviour depends on <strong>multiple conditions</strong>. Represents conditions and actions in tabular form. Ensures all logical combinations are tested.</p>
+    <p style="margin-top:10px"><strong>Structure:</strong> Conditions (inputs) + Actions (expected outputs) + Rules (combinations of conditions)</p>
+    <p style="margin-top:12px"><strong>Example: Online Shopping Discount System</strong></p>
+    <div class="tw">
+      <table>
+        <tr><th>Condition / Rule</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th></tr>
+        <tr><td>Premium Member?</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+        <tr><td>Purchase &gt; ₹5000?</td><td>Yes</td><td>No</td><td>Yes</td><td>No</td></tr>
+        <tr><td><strong>20% Discount</strong></td><td>✓</td><td>✗</td><td>✗</td><td>✗</td></tr>
+        <tr><td><strong>10% Discount</strong></td><td>✗</td><td>✓</td><td>✓</td><td>✗</td></tr>
+        <tr><td><strong>No Discount</strong></td><td>✗</td><td>✗</td><td>✗</td><td>✓</td></tr>
+      </table>
+    </div>
+    <p style="margin-top:12px"><strong>Rules (Plain English):</strong></p>
+    <ul class="pts">
+      <li>R1: Premium + Amount &gt; ₹5000 → <strong>20% Discount</strong></li>
+      <li>R2: Premium + Amount ≤ ₹5000 → <strong>10% Discount</strong></li>
+      <li>R3: Non-Premium + Amount &gt; ₹5000 → <strong>10% Discount</strong></li>
+      <li>R4: Non-Premium + Amount ≤ ₹5000 → <strong>No Discount</strong></li>
+    </ul>
+    <p style="margin-top:12px"><strong>Test Cases:</strong></p>
+    <div class="tw">
+      <table>
+        <tr><th>TC</th><th>Input</th><th>Expected Output</th></tr>
+        <tr><td>TC1 (R1)</td><td>Premium user + ₹6000</td><td>20% discount</td></tr>
+        <tr><td>TC2 (R2)</td><td>Premium user + ₹3000</td><td>10% discount</td></tr>
+        <tr><td>TC3 (R3)</td><td>Normal user + ₹7000</td><td>10% discount</td></tr>
+        <tr><td>TC4 (R4)</td><td>Normal user + ₹2000</td><td>No discount</td></tr>
+      </table>
+    </div>
+    <div class="ib ib-gold" style="margin-top:10px">
+      For n conditions → 2ⁿ rules max. 2 conditions → 4 rules. 3 conditions → 8 rules.<br>
+      <strong>Analysis:</strong> Are all combinations covered? Which rules correspond to TCs? Can redundant rules be removed?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#f87171"></span>State Transition Testing</h3>
+    <p>Verifies <strong>system behaviour based on states and events</strong>. Useful for systems where outputs depend on previous states (ATM, login, traffic lights, vending machines).</p>
+    <p style="margin-top:10px"><strong>ATM PIN Verification Example:</strong></p>
+    <div class="ib ib-blue" style="margin-bottom:10px">States: Start · Try Again · Access Granted · Account Locked. User gets 3 attempts.</div>
+    <div class="tw">
+      <table>
+        <tr><th>Current State</th><th>Event</th><th>Next State</th></tr>
+        <tr><td>Start</td><td>Correct PIN</td><td>Access Granted</td></tr>
+        <tr><td>Start</td><td>Wrong PIN</td><td>Try Again</td></tr>
+        <tr><td>Try Again</td><td>Wrong PIN (not 3rd)</td><td>Try Again</td></tr>
+        <tr><td>Try Again</td><td>Wrong PIN (3rd time)</td><td>Account Locked</td></tr>
+      </table>
+    </div>
+    <div class="g2" style="margin-top:10px">
+      <div class="ib ib-teal">
+        <strong>Key Test Cases:</strong><br>
+        • Correct PIN on first attempt<br>
+        • Incorrect PIN all 3 times → locked<br>
+        • Correct PIN on 2nd attempt
+      </div>
+      <div class="ib ib-gold">
+        <strong>Analysis Questions:</strong><br>
+        • Which TCs ensure security?<br>
+        • Can system move to invalid states?<br>
+        • Are all transitions tested?
+      </div>
+    </div>
+    <div class="ib ib-blue" style="margin-top:10px">
+      <strong>Login System Example:</strong> Logged Out → Enter valid creds → Logged In → Click Logout → Logged Out
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MODULE 9 ═══════════════ -->
+<section class="module c9" id="m9">
+  <div class="mod-header">
+    <span class="mod-badge">Module 09</span>
+    <h2>Testing Types: Unit, Integration, UAT, Alpha/Beta, Smoke, Sanity, Regression</h2>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#63b3ed"></span>Unit Testing</h3>
+    <p>Tests individual <strong>components or functions in isolation</strong>. Usually by developers using JUnit (Java) or pytest (Python).</p>
+    <div class="g2">
+      <div class="ib ib-blue"><strong>Analogy:</strong> In a car factory, engineers test the engine, brakes, and headlights <em>separately</em> before assembling. Each part must work independently before integration.</div>
+      <div class="ib ib-teal"><strong>Example:</strong> Testing <code>calculate_discount(price, coupon)</code> in isolation before integrating into the checkout module.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#63b3ed"></span>Integration Testing</h3>
+    <p>Verifies <strong>interaction and data flow between connected modules</strong> after integration. Goal: detect interface and communication errors.</p>
+    <div class="g2">
+      <div class="ib ib-blue"><strong>Analogy:</strong> Chef, waiter, and cashier each work fine alone — but if waiter forgets to tell chef the order, customer stays hungry. That's an integration bug.</div>
+      <div class="ib ib-teal"><strong>Example:</strong> Login module correctly passes credentials to Dashboard and retrieves correct user data from the database.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#63b3ed"></span>User Acceptance Testing (UAT)</h3>
+    <p>Final phase performed by <strong>clients or end users</strong> to confirm system meets business requirements and is ready for production.</p>
+    <div class="g2">
+      <div class="ib ib-blue"><strong>Feynman:</strong> You've built a car — now give it to the customer for a test drive to confirm it feels right.</div>
+      <div class="ib ib-teal"><strong>Example:</strong> Bank staff test the new loan application workflow to confirm it matches their actual business process.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#63b3ed"></span>Alpha &amp; Beta Testing</h3>
+    <div class="g2">
+      <div class="ib ib-blue">
+        <strong>Alpha Testing</strong><br>
+        Internal testing in a controlled environment.<br>
+        <em>Feynman:</em> You taste the soup yourself before serving it.<br>
+        <em>Example:</em> QA team tests mobile banking UI in-house.<br>
+        <em>Finds:</em> Internal defects.
+      </div>
+      <div class="ib ib-teal">
+        <strong>Beta Testing</strong><br>
+        External testing by real users before official launch.<br>
+        <em>Feynman:</em> Serve soup to guests, collect feedback before adding to the menu.<br>
+        <em>Example:</em> Limited user group tests app on their devices, reports usability issues.<br>
+        <em>Finds:</em> Real-world usability issues.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#63b3ed"></span>Smoke Testing</h3>
+    <p>Preliminary test checking <strong>build stability</strong>. Ensures critical features work before detailed testing begins.</p>
+    <div class="g2">
+      <div class="ib ib-blue"><strong>Analogy:</strong> Turn on a new machine — if no smoke, safe to test further. Turn on stove before cooking a full meal.</div>
+      <div class="ib ib-teal"><strong>Example:</strong> After new deployment, verify login, product search, and checkout work before running full functional tests.</div>
+    </div>
+    <div class="ib ib-gold" style="margin-top:8px">Saves hours by identifying unstable builds early in the testing cycle.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#63b3ed"></span>Sanity Testing</h3>
+    <p>Focused testing after <strong>minor code fixes or patches</strong>. Verifies the specific change works and related features remain unaffected.</p>
+    <div class="g2">
+      <div class="ib ib-blue"><strong>Analogy:</strong> You repaired car headlights — now check just the lights, not the whole car again. After fixing a door hinge, open/close it to verify — don't recheck the whole house.</div>
+      <div class="ib ib-teal"><strong>Example:</strong> After fixing 'coupon not applying' bug, verify discount calculation and checkout process work fine.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#63b3ed"></span>Regression Testing</h3>
+    <p>Ensures <strong>new changes have not broken existing functionalities</strong> in the system.</p>
+    <div class="g2">
+      <div class="ib ib-blue"><strong>Analogy:</strong> Fixed one loose wire in TV — now recheck volume, color, brightness. One change can affect many areas. Adding a new menu item → chef still tastes old dishes.</div>
+      <div class="ib ib-teal"><strong>Example:</strong> After adding wallet payment feature, re-run all critical flows (login, cart, checkout) to confirm stability.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#63b3ed"></span>Quick Reference Summary</h3>
+    <div class="tw">
+      <table>
+        <tr><th>Type</th><th>Who Performs</th><th>When</th><th>Purpose</th></tr>
+        <tr><td>Unit</td><td>Developer</td><td>During development</td><td>Test individual functions in isolation</td></tr>
+        <tr><td>Integration</td><td>Developer/QA</td><td>After unit testing</td><td>Test module connections and data flow</td></tr>
+        <tr><td>UAT</td><td>End users/clients</td><td>Before release</td><td>User confirmation of business requirements</td></tr>
+        <tr><td>Alpha</td><td>Internal QA</td><td>Pre-release</td><td>Find internal defects in controlled env</td></tr>
+        <tr><td>Beta</td><td>Real users (external)</td><td>Pre-release</td><td>Real-world usability issues</td></tr>
+        <tr><td>Smoke</td><td>QA</td><td>After new build</td><td>Build stability check</td></tr>
+        <tr><td>Sanity</td><td>QA</td><td>After bug fix</td><td>Verify specific fix works</td></tr>
+        <tr><td>Regression</td><td>QA</td><td>After any change</td><td>Ensure nothing else broke</td></tr>
+      </table>
+    </div>
+    <div class="ib ib-gold" style="margin-top:10px">
+      <strong>Banking App applying all types:</strong> Unit (interest/balance calculations) · Integration (login → transaction → DB) · UAT (staff simulate real transactions) · Alpha/Beta (internal QA &amp; select customers) · Smoke/Sanity (build stability &amp; fix verification) · Regression (QR payments don't affect transfers)
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MODULE 10 ═══════════════ -->
+<section class="module c10" id="m10">
+  <div class="mod-header">
+    <span class="mod-badge">Module 10</span>
+    <h2>Formal, Informal, Monkey, Re-Testing, Load &amp; Stress Testing</h2>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#ecc94b"></span>Formal Testing</h3>
+    <p>Structured, planned, and documented testing per standards (IEEE 829 / ISO/IEC 29119). Follows entire STLC.</p>
+    <ul class="pts">
+      <li>Well-defined test plans and strategies</li>
+      <li>Traceability of test cases to requirements</li>
+      <li>Formal reviews and approvals at each stage</li>
+      <li>Standardised templates and reporting formats</li>
+    </ul>
+    <div class="g2" style="margin-top:10px">
+      <div class="ib ib-blue"><strong>Analogy:</strong> University final exam — syllabus, exam papers, and grading prepared, reviewed, and approved before use. Ensures standardisation and fairness.</div>
+      <div class="ib ib-teal"><strong>Example:</strong> Banking app audit — ISO/IEC standard test plan, each case (e.g., balance validation) reviewed by QA lead, tracked in JIRA, reports signed off by manager and archived for audit.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#ecc94b"></span>Informal Testing</h3>
+    <p>Unscripted, undocumented testing without test plans or formal test cases. Provides rapid feedback for early builds/prototypes.</p>
+    <div class="g2">
+      <div class="ib ib-blue"><strong>Analogy:</strong> Checking car casually before road trip — no checklist, but you spot low fuel or flat tyres. Like proofreading an essay without a formal rubric.</div>
+      <div class="ib ib-teal"><strong>Example:</strong> News app prototype — tester opens sections, scrolls, notes missing images/slow loading/layout issues without scripts. Goal: quick feedback before formal testing.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#ecc94b"></span>Monkey Testing</h3>
+    <p>Random testing — <strong>random inputs and actions</strong> to check system stability and crash behaviour. Tests robustness against unpredictable user behaviour.</p>
+    <div class="g2">
+      <div class="ib ib-blue"><strong>Analogy:</strong> Handing phone to a monkey — it taps everywhere randomly. Pressing random buttons on a TV remote to see if it freezes.</div>
+      <div class="ib ib-teal"><strong>Example:</strong> E-commerce app — enter random chars in name/address, click 'Buy Now' repeatedly, rapid page navigation. Reveals input handling and memory management weaknesses.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#ecc94b"></span>Re-Testing</h3>
+    <p>Performed after fixing a defect to verify the issue is resolved. Focuses <strong>only on previously failed test cases</strong>.</p>
+    <div class="g2">
+      <div class="ib ib-blue"><strong>Analogy:</strong> Fix leaking tap → open tap again to confirm it no longer leaks. Replace flat tyre → test just that tyre for performance.</div>
+      <div class="ib ib-teal"><strong>Example:</strong> After resolving login bug, QA re-executes only the failed test case 'Invalid password handling' to confirm fix works.</div>
+    </div>
+    <div class="ib ib-gold" style="margin-top:8px"><strong>Re-Testing ≠ Regression Testing.</strong> Re-test = verify fix on the specific failed TC. Regression = ensure nothing else broke because of that fix.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#ecc94b"></span>Load Testing vs Stress Testing</h3>
+    <div class="g2">
+      <div class="ib ib-blue">
+        <strong>Load Testing</strong><br>
+        Measures system performance under <em>expected workload</em>.<br><br>
+        Analogy: Testing a bridge under regular traffic.<br>
+        Analogy: Café runs smoothly with expected customers.<br><br>
+        Example: Simulate 1000 concurrent users logging in and browsing.
+      </div>
+      <div class="ib ib-pink">
+        <strong>Stress Testing</strong><br>
+        Pushes system <em>beyond its limits</em> to see when it breaks.<br><br>
+        Analogy: Driving heavy trucks over bridge to find breaking point.<br>
+        Analogy: Flooding café with sudden crowd to see if service collapses.<br><br>
+        Example: Gradually increase to 5000 users to check system limits.
+      </div>
+    </div>
+    <p style="margin-top:12px"><strong>Metrics measured:</strong> Response time · Throughput · Server CPU utilisation · Memory usage</p>
+    <p><strong>Tools:</strong> Apache JMeter · LoadRunner</p>
+    <p style="margin-top:10px"><strong>Formal vs Informal:</strong></p>
+    <div class="tw">
+      <table>
+        <tr><th>Aspect</th><th>Informal Testing</th><th>Formal Testing</th></tr>
+        <tr><td>Planning</td><td>No planning</td><td>Well planned</td></tr>
+        <tr><td>Documentation</td><td>Minimal / none</td><td>Detailed</td></tr>
+        <tr><td>Approach</td><td>Random / exploratory</td><td>Structured</td></tr>
+        <tr><td>Reliability</td><td>Less reliable</td><td>More reliable</td></tr>
+        <tr><td>Use case</td><td>Early stages / prototypes</td><td>Final validation</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#ecc94b"></span>Practice MCQs — Module 10</h3>
+    <div class="mcq">
+      <div class="q">Q) A tester executes predefined test cases, records results, and reports defects systematically. Which testing?<br>A. Informal &nbsp; B. Monkey &nbsp; C. Formal &nbsp; D. Exploratory</div>
+      <div class="ans">✅ C. Formal Testing</div>
+    </div>
+    <div class="mcq">
+      <div class="q">Q) A developer randomly clicks buttons and inputs unexpected values during coding to quickly check system behaviour. Identify the testing type.<br>A. Formal &nbsp; B. Informal &nbsp; C. Regression &nbsp; D. Load</div>
+      <div class="ans">✅ B. Informal Testing</div>
+    </div>
+    <div class="mcq">
+      <div class="q">Q) Which scenario best distinguishes re-testing from regression testing?<br>A. Re-testing verifies fixes; regression checks for unintended side effects &nbsp; B. Both identical &nbsp; C. Regression verifies fixes &nbsp; D. Re-testing done before fixing</div>
+      <div class="ans">✅ A. Re-testing verifies fixes; regression testing checks for unintended side effects</div>
+    </div>
+    <div class="mcq">
+      <div class="q">Q) System performs well under expected load but crashes when traffic exceeds the limit. Conclusion?<br>A. Load testing sufficient &nbsp; B. Stress testing was inadequate &nbsp; C. Re-testing failed &nbsp; D. Informal testing required</div>
+      <div class="ans">✅ B. Stress testing was not adequately performed</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MODULE 11 ═══════════════ -->
+<section class="module c11" id="m11">
+  <div class="mod-header">
+    <span class="mod-badge">Module 11</span>
+    <h2>Ad hoc, Pair, Exploratory, Iterative Testing &amp; Defect Seeding</h2>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#818cf8"></span>Ad hoc Testing</h3>
+    <p>Unstructured, informal testing <strong>without test cases</strong>. Done by experienced testers using intuition, domain knowledge, and creativity. Goal: detect defects quickly outside formal conditions.</p>
+    <div class="g2">
+      <div class="ib ib-purple"><strong>Analogy:</strong> Trying random controls in a new car — pushing buttons, changing gears, switching modes unexpectedly.</div>
+      <div class="ib ib-blue"><strong>Example:</strong> Banking app — rapidly switch screens, input invalid PIN during network lag, perform unexpected swipes and gestures to detect crashes.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#818cf8"></span>Pair Testing</h3>
+    <p>Two testers <strong>collaborate on the same system simultaneously</strong>. One executes tests, the other observes and documents. Improves defect detection and promotes knowledge sharing.</p>
+    <div class="g2">
+      <div class="ib ib-purple"><strong>Feynman:</strong> Like two detectives reviewing the same crime scene — one investigates closely, the other evaluates patterns.</div>
+      <div class="ib ib-blue"><strong>Analogy:</strong> Two pilots testing aircraft controls — one flying, one monitoring panels. Shared observation increases safety and anomaly detection.</div>
+    </div>
+    <div class="ib ib-teal" style="margin-top:8px"><strong>Example:</strong> Two testers explore checkout process — one interacts with UI, the other records issues. Used widely in agile teams for fast discovery of edge cases.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#818cf8"></span>Exploratory Testing</h3>
+    <p>Simultaneous <strong>learning, designing, and executing tests</strong>. Tester explores application freely based on system behaviour. No predefined test cases. Suitable for poorly documented or rapidly changing systems.</p>
+    <div class="g2">
+      <div class="ib ib-purple"><strong>Feynman:</strong> Like exploring a new city without a map — discovering paths as you go. You learn by trial, error, and curiosity.</div>
+      <div class="ib ib-blue"><strong>Analogy:</strong> Unboxing a new smartphone and trying features, menus, settings — figuring out how it works by experimenting.</div>
+    </div>
+    <div class="ib ib-teal" style="margin-top:8px"><strong>Example:</strong> Tester explores CRM module with incomplete documentation, focuses on discovering workflow issues and hidden bugs.</div>
+    <div class="ib ib-gold" style="margin-top:6px"><strong>Best when:</strong> Requirements are unclear or rapidly changing. Test design and execution happen at the SAME time.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#818cf8"></span>Iterative Testing</h3>
+    <p>Testing performed <strong>repeatedly in cycles after each new build</strong>. Ensures fixes don't introduce new errors. Common in Agile, DevOps, and CI pipelines.</p>
+    <div class="g2">
+      <div class="ib ib-purple"><strong>Feynman:</strong> Like shaping clay — test, adjust, refine, and repeat. Each iteration improves upon previous results.</div>
+      <div class="ib ib-blue"><strong>Analogy:</strong> Tasting cake batter after each ingredient and adjusting flavour. A loop of improvement and verification.</div>
+    </div>
+    <div class="ib ib-teal" style="margin-top:8px"><strong>Example:</strong> Testing app after each sprint update for regression. Repeated tests ensure new features don't break existing ones.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#818cf8"></span>Defect Seeding (Fault Seeding)</h3>
+    <p>Intentionally <strong>inserting known defects</strong> into the system to measure testing effectiveness and test coverage quality. Used in safety-critical industries (aviation, healthcare).</p>
+    <div class="g2">
+      <div class="ib ib-purple"><strong>Feynman:</strong> Like a teacher adding hidden mistakes in assignments to see if students catch them. If seeded defects are found, real ones likely will be too.</div>
+      <div class="ib ib-blue"><strong>Analogy:</strong> Security team plants fake threats to evaluate emergency readiness — measures how well real issues would be detected.</div>
+    </div>
+    <div class="ib ib-teal" style="margin-top:8px"><strong>Example:</strong> Healthcare app — team inserts 10 dummy bugs. If 8 are found, test effectiveness ≈ 80%.</div>
+    <div class="formula" style="margin-top:10px">Test Effectiveness = (Seeded Defects Found / Total Seeded Defects) × 100</div>
+    <p style="margin-top:12px"><strong>Solved Numericals:</strong> 10 defects seeded, 6 found.</p>
+    <ul class="pts">
+      <li>Effectiveness = 6/10 × 100 = <span class="hl">60%</span></li>
+      <li>If app has 40 real defects → expected found = 40 × 0.6 = <span class="hl">24 defects</span></li>
+      <li>If 30 defects found → actual defects in app = 30 / 0.6 = <span class="hl">50 defects</span></li>
+    </ul>
+    <p style="margin-top:12px"><strong>Shortcomings of Defect Seeding:</strong></p>
+    <ul class="pts">
+      <li>Introduction of unintended bugs into the codebase</li>
+      <li>Artificial defects may distort defect metrics (biggest risk)</li>
+      <li>Time and cost overhead</li>
+      <li>Risk of not removing seeded defects from final product</li>
+      <li>Increased complexity in debugging</li>
+      <li>No direct relation to real defects in the system</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#818cf8"></span>Practice MCQs — Module 11</h3>
+    <div class="mcq">
+      <div class="q">Q) A tester explores an app without predefined TCs, learning while simultaneously designing and executing. Which approach?<br>A. Pair Testing &nbsp; B. Exploratory Testing &nbsp; C. Iterative Testing &nbsp; D. Defect Seeding</div>
+      <div class="ans">✅ B. Exploratory Testing</div>
+    </div>
+    <div class="mcq">
+      <div class="q">Q) Which justifies exploratory testing best?<br>A. Strict compliance mandatory &nbsp; B. Requirements unclear or rapidly changing &nbsp; C. Performance measurement needed &nbsp; D. Only regression required</div>
+      <div class="ans">✅ B. When requirements are unclear or rapidly changing</div>
+    </div>
+    <div class="mcq">
+      <div class="q">Q) During sprint development, testers continuously test newly added features and update strategies based on feedback. Identify the approach.<br>A. Iterative Testing &nbsp; B. Pair Testing &nbsp; C. Defect Seeding &nbsp; D. Formal Testing</div>
+      <div class="ans">✅ A. Iterative Testing</div>
+    </div>
+    <div class="mcq">
+      <div class="q">Q) Which risk is most associated with defect seeding?<br>A. Lack of collaboration &nbsp; B. Artificial defects may distort defect metrics &nbsp; C. Increased documentation effort &nbsp; D. Reduced test coverage</div>
+      <div class="ans">✅ B. Artificial defects may distort defect metrics</div>
+    </div>
+    <div class="mcq">
+      <div class="q">Q) No time for documentation. Single tester randomly checks functionality and reports defects by intuition. Best combination?<br>A. Formal + Iterative &nbsp; B. Exploratory + Ad hoc &nbsp; C. Pair + Load &nbsp; D. Defect Seeding + Regression</div>
+      <div class="ans">✅ B. Exploratory + Ad hoc Testing</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MODULE 12 ═══════════════ -->
+<section class="module c12" id="m12">
+  <div class="mod-header">
+    <span class="mod-badge">Module 12</span>
+    <h2>Test Metrics &amp; Measurements + Testing vs Debugging</h2>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#2dd4bf"></span>Testing vs Debugging</h3>
+    <div class="tw">
+      <table>
+        <tr><th>Aspect</th><th>Testing</th><th>Debugging</th></tr>
+        <tr><td>Definition</td><td>Process of <em>finding</em> defects</td><td>Process of <em>locating and fixing</em> defects</td></tr>
+        <tr><td>Who does it</td><td>Both testers AND developers</td><td>Done by developers only</td></tr>
+        <tr><td>Nature</td><td>Planned and systematic</td><td>Ad-hoc (as defects are found)</td></tr>
+        <tr><td>Automation</td><td>Can be automated</td><td>Manual process</td></tr>
+        <tr><td>Aim</td><td>Quality assurance — identify &amp; report defects</td><td>Defect removal — make software work as intended</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#2dd4bf"></span>Measurements vs Metrics</h3>
+    <div class="tw">
+      <table>
+        <tr><th>Aspect</th><th>Measurement</th><th>Metric</th></tr>
+        <tr><td>What it is</td><td>Raw data collected</td><td>Processed information derived from data</td></tr>
+        <tr><td>Level</td><td>Low-level, factual numbers</td><td>Higher-level analytical indicators</td></tr>
+        <tr><td>Example</td><td>"120 TCs executed, 30 defects found"</td><td>Defect density = 30 defects / 10 KLOC</td></tr>
+        <tr><td>Purpose</td><td>Capture facts</td><td>Evaluate quality, progress, efficiency</td></tr>
+      </table>
+    </div>
+    <div class="ib ib-blue" style="margin-top:10px"><strong>Analogy:</strong> Measurement = "I ran 5 km in 30 mins." (raw data). Metric = "My average speed was 10 km/h." (calculated, useful for comparison)</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#2dd4bf"></span>3 Types of Test Metrics</h3>
+    <div class="tw">
+      <table>
+        <tr><th>Type</th><th>Measures</th><th>Key Examples</th></tr>
+        <tr><td><strong>Process Metrics</strong></td><td>Efficiency of the testing process</td><td>DRE, Test Coverage, Test Cycle Time</td></tr>
+        <tr><td><strong>Product Metrics</strong></td><td>Quality of the product itself</td><td>Defect Density, Severity Mix, MTBF</td></tr>
+        <tr><td><strong>Project Metrics</strong></td><td>Overall project/test phase health</td><td>TC Execution Rate, Defect Arrival Rate, Schedule Variance</td></tr>
+      </table>
+    </div>
+    <hr class="div">
+    <p><strong>1. Process Metrics — Is our way of testing working well?</strong></p>
+    <ul class="pts">
+      <li><strong>DRE (Defect Removal Efficiency)</strong> = (Defects found pre-release) / (Pre-release + Post-release defects) × 100. Higher = better.</li>
+      <li><strong>Test Coverage</strong> = (Items tested / Total items) × 100. Higher = better (but 100% ≠ zero bugs).</li>
+      <li><strong>Test Cycle Time</strong> = Average time to run a test cycle. Lower = better.</li>
+    </ul>
+    <hr class="div">
+    <p><strong>2. Product Metrics — Is the product stable and secure?</strong></p>
+    <ul class="pts">
+      <li><strong>Defect Density</strong> = Defects / Size unit (KLOC). Lower = better.</li>
+      <li><strong>Severity Mix</strong> = Fraction of bugs that are critical vs minor. Fewer criticals = better.</li>
+      <li><strong>Reliability (MTBF)</strong> = Average time between failures in realistic use. Higher = better.</li>
+    </ul>
+    <hr class="div">
+    <p><strong>3. Project Metrics — Are we on track?</strong></p>
+    <ul class="pts">
+      <li><strong>TC Execution Rate</strong> = Tests executed / Time (planned vs actual)</li>
+      <li><strong>Defect Arrival Rate</strong> = New bugs per day/week. Healthy project: peaks then declines.</li>
+      <li><strong>Schedule Variance</strong> = Actual time − Planned time. Small variance = good.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#2dd4bf"></span>8 Key Test Metric Formulas</h3>
+    <div class="tw">
+      <table>
+        <tr><th>#</th><th>Metric</th><th>Formula</th></tr>
+        <tr><td>1</td><td>Test Case Effectiveness</td><td>(Defects Detected / Test Cases Run) × 100</td></tr>
+        <tr><td>2</td><td>Passed TC %</td><td>(Tests Passed / Tests Executed) × 100</td></tr>
+        <tr><td>3</td><td>Failed TC %</td><td>(Tests Failed / Tests Executed) × 100</td></tr>
+        <tr><td>4</td><td>Blocked TC %</td><td>(Blocked Tests / Tests Executed) × 100</td></tr>
+        <tr><td>5</td><td>Fixed Defects %</td><td>(Defects Fixed / Defects Reported) × 100</td></tr>
+        <tr><td>6</td><td>Rework Effort Ratio</td><td>(Actual Rework Efforts / Total Actual Efforts) × 100</td></tr>
+        <tr><td>7</td><td>Accepted Defects %</td><td>(Defects Accepted by Dev Team / Total Defects Reported) × 100</td></tr>
+        <tr><td>8</td><td>Defects Deferred %</td><td>(Defects Deferred / Total Defects Reported) × 100</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#2dd4bf"></span>Solved Numericals</h3>
+    <div class="ib ib-blue" style="margin-bottom:12px">
+      <strong>Given data:</strong> TCs Written=200, Executed=164, Passed=100, Failed=60, Blocked=4, Unexecuted=36, Defects=20, Accepted=15, Deferred=5, Fixed=12
+    </div>
+    <div class="tw">
+      <table>
+        <tr><th>Metric</th><th>Calculation</th><th>Answer</th></tr>
+        <tr><td>TC Executed %</td><td>(164 / 200) × 100</td><td><strong>82%</strong></td></tr>
+        <tr><td>TC Effectiveness</td><td>(20 / 164) × 100</td><td><strong>12.2%</strong></td></tr>
+        <tr><td>Failed TC %</td><td>(60 / 164) × 100</td><td><strong>36.59%</strong></td></tr>
+        <tr><td>Blocked TC %</td><td>(4 / 164) × 100</td><td><strong>2.44%</strong></td></tr>
+        <tr><td>Fixed Defects %</td><td>(12 / 20) × 100</td><td><strong>60%</strong></td></tr>
+        <tr><td>Accepted Defects %</td><td>(15 / 20) × 100</td><td><strong>75%</strong></td></tr>
+        <tr><td>Defects Deferred %</td><td>(5 / 20) × 100</td><td><strong>25%</strong></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MODULE 13 ═══════════════ -->
+<section class="module c13" id="m13">
+  <div class="mod-header">
+    <span class="mod-badge">Module 13</span>
+    <h2>Case Studies + Python Automation Code</h2>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#f472b6"></span>Case Study Scenarios &amp; Objectives</h3>
+    <div class="tw">
+      <table>
+        <tr><th>Case Study</th><th>Problem / Scenario</th><th>Objective</th></tr>
+        <tr><td><strong>CS1: E-commerce Checkout</strong></td><td>Intermittent payment failures during checkout at peak times</td><td>Identify defects, measure defect density, recommend fixes</td></tr>
+        <tr><td><strong>CS2: Banking OTP Flow</strong></td><td>OTP not implemented correctly — users able to login without OTP under some flows</td><td>Verify requirement coverage and validate OTP functionality</td></tr>
+        <tr><td><strong>CS3: Airline Booking</strong></td><td>System crashes or slows during peak booking periods causing poor reliability</td><td>Ensure reliability under load and functional correctness</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#f472b6"></span>Case Study 1: E-commerce Checkout</h3>
+    <div class="tw">
+      <table>
+        <tr><th>TC ID</th><th>Description</th><th>Input</th><th>Expected</th><th>Result</th></tr>
+        <tr><td>TC01</td><td>Add item to cart</td><td>ItemID=123</td><td>Item added to cart</td><td>✅ Pass</td></tr>
+        <tr><td>TC02</td><td>Checkout with valid card</td><td>Valid Visa</td><td>Payment success</td><td>❌ Fail (gateway timeout)</td></tr>
+        <tr><td>TC03</td><td>Checkout with expired card</td><td>Expired card</td><td>Payment declined</td><td>✅ Pass</td></tr>
+        <tr><td>TC04</td><td>Empty cart checkout</td><td>No items</td><td>Show error</td><td>✅ Pass</td></tr>
+        <tr><td>TC05</td><td>Network disconnect at payment</td><td>Network down</td><td>Retry prompt</td><td>❌ Fail (app crash)</td></tr>
+        <tr><td>TC06</td><td>Bulk order checkout</td><td>100 items</td><td>Payment success</td><td>❌ Fail (pending state)</td></tr>
+      </table>
+    </div>
+    <div class="ib ib-pink" style="margin-top:10px">
+      Passed: 3 | Failed: 3 | <strong>Defect Density = 3/6 = 0.5</strong><br>
+      DEF-001: Payment Gateway Timeout (Critical) | DEF-002: App crash on network disconnect (Critical) | DEF-003: Pending payment for bulk orders (High)
+    </div>
+    <pre><span class="kw">import</span> unittest
+<span class="kw">from</span> selenium <span class="kw">import</span> webdriver
+<span class="kw">from</span> selenium.webdriver.common.by <span class="kw">import</span> By
+<span class="kw">import</span> time
+
+<span class="kw">class</span> <span class="fn">TestEcommerceCheckout</span>(unittest.TestCase):
+    <span class="kw">def</span> <span class="fn">setUp</span>(self):
+        self.driver = webdriver.<span class="fn">Chrome</span>()
+        self.driver.<span class="fn">get</span>(<span class="str">"http://example-ecommerce.com"</span>)
+    <span class="kw">def</span> <span class="fn">tearDown</span>(self):
+        self.driver.<span class="fn">quit</span>()
+    <span class="kw">def</span> <span class="fn">test_add_item_to_cart</span>(self):
+        d = self.driver
+        d.<span class="fn">find_element</span>(By.ID, <span class="str">"search"</span>).<span class="fn">send_keys</span>(<span class="str">"Laptop"</span>)
+        d.<span class="fn">find_element</span>(By.ID, <span class="str">"add_123"</span>).<span class="fn">click</span>()
+        self.<span class="fn">assertIn</span>(<span class="str">"Laptop"</span>, d.<span class="fn">find_element</span>(By.ID, <span class="str">"cart"</span>).text)
+    <span class="kw">def</span> <span class="fn">test_checkout_valid_card</span>(self):
+        d = self.driver
+        d.<span class="fn">find_element</span>(By.ID, <span class="str">"add_123"</span>).<span class="fn">click</span>()
+        d.<span class="fn">find_element</span>(By.ID, <span class="str">"checkout"</span>).<span class="fn">click</span>()
+        d.<span class="fn">find_element</span>(By.ID, <span class="str">"card_number"</span>).<span class="fn">send_keys</span>(<span class="str">"4111111111111111"</span>)
+        d.<span class="fn">find_element</span>(By.ID, <span class="str">"expiry"</span>).<span class="fn">send_keys</span>(<span class="str">"12/25"</span>)
+        d.<span class="fn">find_element</span>(By.ID, <span class="str">"cvv"</span>).<span class="fn">send_keys</span>(<span class="str">"123"</span>)
+        d.<span class="fn">find_element</span>(By.ID, <span class="str">"pay"</span>).<span class="fn">click</span>()
+        time.<span class="fn">sleep</span>(<span class="str">2</span>)
+        self.<span class="fn">assertIn</span>(<span class="str">"Payment Success"</span>, d.page_source)</pre>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#f472b6"></span>Case Study 2: Banking OTP Flow</h3>
+    <div class="tw">
+      <table>
+        <tr><th>TC ID</th><th>Description</th><th>Expected</th><th>Result</th></tr>
+        <tr><td>TC01</td><td>Login with correct OTP</td><td>Login success</td><td>✅ Pass</td></tr>
+        <tr><td>TC02</td><td>Login with wrong OTP</td><td>Login failure</td><td>✅ Pass</td></tr>
+        <tr><td>TC03</td><td>Expired OTP</td><td>OTP expired message</td><td>✅ Pass</td></tr>
+        <tr><td>TC04</td><td>Request multiple OTPs</td><td>Rate limit enforced</td><td>❌ Fail (no rate limiting)</td></tr>
+        <tr><td>TC05</td><td>No OTP sent (network issue)</td><td>Error shown</td><td>❌ Fail (no error message)</td></tr>
+        <tr><td>TC06</td><td>Bypass OTP via session reuse</td><td>OTP required</td><td>❌ Fail (security bug)</td></tr>
+      </table>
+    </div>
+    <div class="ib ib-pink" style="margin-top:10px">
+      Passed: 3 | Failed: 3<br>
+      DEF-101: Missing rate limiting on OTP requests (High) | DEF-102: Poor error handling when SMS not delivered (High) | DEF-103: Session reuse bypassing OTP (Critical)
+    </div>
+    <pre><span class="cm"># pytest version</span>
+<span class="kw">import</span> pytest
+<span class="kw">from</span> selenium <span class="kw">import</span> webdriver
+<span class="kw">from</span> selenium.webdriver.common.by <span class="kw">import</span> By
+
+<span class="fn">@pytest.fixture</span>
+<span class="kw">def</span> <span class="fn">driver</span>():
+    d = webdriver.<span class="fn">Chrome</span>()
+    d.<span class="fn">get</span>(<span class="str">"http://example-bank.com/login"</span>)
+    <span class="kw">yield</span> d
+    d.<span class="fn">quit</span>()
+
+<span class="kw">def</span> <span class="fn">test_login_with_correct_otp</span>(driver):
+    driver.<span class="fn">find_element</span>(By.ID, <span class="str">"username"</span>).<span class="fn">send_keys</span>(<span class="str">"user1"</span>)
+    driver.<span class="fn">find_element</span>(By.ID, <span class="str">"password"</span>).<span class="fn">send_keys</span>(<span class="str">"pass"</span>)
+    driver.<span class="fn">find_element</span>(By.ID, <span class="str">"login"</span>).<span class="fn">click</span>()
+    driver.<span class="fn">find_element</span>(By.ID, <span class="str">"otp"</span>).<span class="fn">send_keys</span>(<span class="str">"123456"</span>)
+    driver.<span class="fn">find_element</span>(By.ID, <span class="str">"verify"</span>).<span class="fn">click</span>()
+    <span class="kw">assert</span> <span class="str">"Welcome"</span> <span class="kw">in</span> driver.page_source</pre>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#f472b6"></span>Case Study 3: Airline Booking</h3>
+    <div class="tw">
+      <table>
+        <tr><th>TC ID</th><th>Description</th><th>Expected</th><th>Result</th></tr>
+        <tr><td>TC01</td><td>Search flights — normal load</td><td>Flights listed</td><td>✅ Pass</td></tr>
+        <tr><td>TC02</td><td>Search flights — 5000 users</td><td>Responds within SLA</td><td>❌ Fail (timeouts)</td></tr>
+        <tr><td>TC03</td><td>Invalid date search (past)</td><td>Validation error</td><td>✅ Pass</td></tr>
+        <tr><td>TC04</td><td>Seat selection and confirm</td><td>Seat reserved</td><td>✅ Pass</td></tr>
+        <tr><td>TC05</td><td>Complete payment</td><td>Booking success</td><td>✅ Pass</td></tr>
+        <tr><td>TC06</td><td>Server crash during booking</td><td>Rollback / safe state</td><td>❌ Fail (incomplete rollback)</td></tr>
+      </table>
+    </div>
+    <div class="ib ib-pink" style="margin-top:10px">
+      Passed: 4 | Failed: 2<br>
+      DEF-201: Poor scalability under peak load (Critical) | DEF-202: Transactions not rolled back on crash (High)<br>
+      <strong>Recommendation:</strong> Implement load balancing and transactional integrity.
+    </div>
+    <pre><span class="cm"># pytest version</span>
+<span class="fn">@pytest.fixture</span>
+<span class="kw">def</span> <span class="fn">driver</span>():
+    d = webdriver.<span class="fn">Chrome</span>()
+    d.<span class="fn">get</span>(<span class="str">"http://example-airline.com"</span>)
+    <span class="kw">yield</span> d
+    d.<span class="fn">quit</span>()
+
+<span class="kw">def</span> <span class="fn">test_search_flights</span>(driver):
+    driver.<span class="fn">find_element</span>(By.ID, <span class="str">"from"</span>).<span class="fn">send_keys</span>(<span class="str">"DEL"</span>)
+    driver.<span class="fn">find_element</span>(By.ID, <span class="str">"to"</span>).<span class="fn">send_keys</span>(<span class="str">"BOM"</span>)
+    driver.<span class="fn">find_element</span>(By.ID, <span class="str">"date"</span>).<span class="fn">send_keys</span>(<span class="str">"2025-10-12"</span>)
+    driver.<span class="fn">find_element</span>(By.ID, <span class="str">"search"</span>).<span class="fn">click</span>()
+    <span class="kw">import</span> time; time.<span class="fn">sleep</span>(<span class="str">2</span>)
+    <span class="kw">assert</span> <span class="str">"Select Flight"</span> <span class="kw">in</span> driver.page_source</pre>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#f472b6"></span>Key Takeaways from Case Studies</h3>
+    <ul class="pts">
+      <li>Combine <strong>manual exploratory testing</strong> with automation for regression</li>
+      <li>Use <strong>STLC to plan</strong> and ensure early defect detection</li>
+      <li>Track metrics — <strong>defect density, DRE</strong> — to measure testing effectiveness</li>
+      <li>Automate critical flows using <strong>Selenium with unittest/pytest</strong></li>
+      <li>Maintain <strong>defect logs and actionable reports</strong> for stakeholders</li>
+    </ul>
+  </div>
+
+  <!-- QUICK REVISION -->
+  <div class="card" style="border-color:rgba(79,144,247,.45); background:rgba(79,144,247,.05); margin-top:28px">
+    <h3><span class="dot"></span>⚡ Last-Minute Quick Revision</h3>
+    <div class="g2">
+      <div>
+        <p><span class="pill p-blue">7 Principles</span> defects presence · exhaustive impossible · early testing · defect clustering · pesticide paradox · context dependent · absence of errors fallacy</p>
+        <p style="margin-top:8px"><span class="pill p-teal">STLC Phases</span> Req Analysis → Planning → Test Case Design → Env Setup → Execution → Defect Tracking → Closure</p>
+        <p style="margin-top:8px"><span class="pill p-gold">STLC Deliverables</span> RTM → Test Plan → TC Doc → Env Confirmation → Exec Report → Defect Log → TSR</p>
+        <p style="margin-top:8px"><span class="pill p-pink">Coverage</span> Statement &lt; Branch &lt; Path (exhaustiveness). Path = most thorough.</p>
+        <p style="margin-top:8px"><span class="pill p-blue">V vs V</span> Verification = "built right?" | Validation = "right product?"</p>
+        <p style="margin-top:8px"><span class="pill p-teal">Peer Review Methods</span> Peer(1-2) · Walkthrough(2-7, author) · Inspection(3-6, moderator)</p>
+      </div>
+      <div>
+        <p><span class="pill p-gold">Smoke vs Sanity</span> Smoke = new build stability check | Sanity = after minor fix, verify that fix</p>
+        <p style="margin-top:8px"><span class="pill p-pink">Re-test vs Regression</span> Re-test = verify specific fix | Regression = ensure nothing else broke</p>
+        <p style="margin-top:8px"><span class="pill p-blue">Load vs Stress</span> Load = expected capacity | Stress = beyond limits, find breaking point</p>
+        <p style="margin-top:8px"><span class="pill p-teal">Alpha vs Beta</span> Alpha = internal QA | Beta = external real users</p>
+        <p style="margin-top:8px"><span class="pill p-gold">Func vs Non-func</span> Functional = WHAT system does | Non-functional = HOW WELL it performs</p>
+        <p style="margin-top:8px"><span class="pill p-pink">White vs Black Box</span> White = internal code, developer | Black = requirements, tester</p>
+        <p style="margin-top:8px"><span class="pill p-purple">QC vs QA</span> QC = reactive (find &amp; fix) | QA = proactive (prevent defects)</p>
+        <p style="margin-top:8px"><span class="pill p-green">Testing vs Debugging</span> Testing = find defects | Debugging = find &amp; fix defects (devs only)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- end container -->
+</body>
+</html>
